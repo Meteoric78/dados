@@ -23,8 +23,8 @@ void mostrar_no(No *nodezinho){
 
 void mostrar_nos(No *nodezinho){
 	No *p;
-	for (p=nodezinho->prox; p!=NULL; p=p->prox){
-		printf("%d\n", nodezinho->dado);
+	for (p=nodezinho; p!=NULL; p=p->prox){
+		printf("%d\n", p->dado);
 	}
 }
 
