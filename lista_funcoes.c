@@ -62,6 +62,65 @@ void mostrar_lista(Desc *d){
 	}
 }
 
+void mostrar_negativos(Desc *d){
+	if (d->ini == NULL)
+		printf("Lista vazia.\n");
+	else{
+		No *p;
+		for (p=d->ini; p!=NULL; p=p->prox){
+			if(p->dado < 0)
+				printf("%d\n", p->dado);
+		}
+	}
+}
+
+int inserir_apos(Desc *d, int ref, int a_inserir){
+	int match = 0;
+	No *p;
+	for (p=d->ini; p!=NULL; p=p->prox){
+		if (ref == p->dado)
+			match = 1;
+	}
+	if (match){
+		No *novo = criar_no(a_inserir);
+		if (d->ini == d->fim){
+			d->fim->prox = novo;
+			d->fim = novo;
+		}else{
+			if (ref == d->fim->dado){
+				d->fim->prox = novo;
+				d->fim = novo;
+			}else{
+				No *p;
+				for(p=d->ini; p->dado!=ref; p=p->prox);
+				novo->prox = p->prox;
+				p->prox = novo;
+			}
+		}
+		def_maior(d);
+		d->qtd++;
+		return 0;
+	}
+	return 1;
+}
+
+int inserir_antes(){
+}
+
+int encontrar_posicao(){
+}
+
+void remover_posicao(){
+}
+
+void inverter_lista(){
+}
+
+void concatenar_lista(){
+}
+
+void intercalar_lista(){
+}
 
 int main() {
 	Desc d;
@@ -71,12 +130,17 @@ int main() {
 	d.maior = NULL;
 
 	inserir_fim(&d, 10);
-	inserir_fim(&d, 20);
-	inserir_fim(&d, 30);
+	inserir_fim(&d, -3);
+	inserir_fim(&d, -7);
 	inserir_fim(&d, 100);
 
 	mostrar_desc(&d);
 
+	mostrar_lista(&d);
+	mostrar_negativos(&d);
+	
+	inserir_apos(&d,-3, 1002);
+	mostrar_desc(&d);
 	mostrar_lista(&d);
 
 }
