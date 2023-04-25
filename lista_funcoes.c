@@ -99,12 +99,26 @@ int inserir_apos(Desc *d, int ref, int a_inserir){
 		}
 		def_maior(d);
 		d->qtd++;
-		return 0;
 	}
-	return 1;
+	return match;
 }
 
-int inserir_antes(){
+int inserir_antes(Desc *d, int ref, int a_inserir){
+	No *novo = criar_no(a_inserir);
+	No *p;
+	if (ref == d->ini->dado){
+		novo->prox = d->ini;
+		d->ini = novo;
+		d->qtd++;
+		return 0;
+	}
+	for (p=d->ini; (p->prox != NULL) && (p->prox->dado != ref); p=p->prox);
+	if (p->prox == NULL)
+		return 1;
+	novo->prox = p->prox;
+	p->prox = novo;	
+	d->qtd++;
+	return 0;	
 }
 
 int encontrar_posicao(){
@@ -135,12 +149,9 @@ int main() {
 	inserir_fim(&d, 100);
 
 	mostrar_desc(&d);
-
 	mostrar_lista(&d);
-	mostrar_negativos(&d);
-	
-	inserir_apos(&d,-3, 1002);
+
+	inserir_antes(&d, 10, 69);
 	mostrar_desc(&d);
 	mostrar_lista(&d);
-
 }
